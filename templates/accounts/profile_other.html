@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block style %} 
+{% endblock %}
+
+{% block content %}
+    {% if profile %}
+    <div>
+        <img src="/media/{{profile.dp}}" alt="" height="200" width="200">
+        <h1> {{profile.user.username}} </h1>
+        <h3>{{profile.user.first_name}} {{profile.user.last_name}}</h3>
+        <p>{{profile.about}}</p>
+
+        <div>
+            <p>Following : {{profile.following.all|length}}</p>
+            <p>Followers : {{profile.followers.all|length}}</p>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <form action="" method="post"> 
+                {% csrf_token %}
+                {% if followed %}
+                    <input type="submit" value="Unfollow">
+                {% else %}
+                    <input type="submit" value="Follow">
+                {% endif %}
+            </form>
+        {% else %}
+            <p>To follow people you need to login <a href="/accounts/login">here</a></p>
+        {% endif %}
+
+    </div>
+    {% else %}
+    <div>
+        User doesn't exist
+    </div>
+    {% endif %}
+{% endblock %}

@@ -13,11 +13,12 @@
 - edited
 
 #### Profile
-- pic : ImageField
+- dp : ImageField
 - phone : CharField
 - about : TextField
 - gender : ChoiceField
 - bday : DateField
+- user : OnetoOne
 
 #### Group
 - title : CharField
@@ -50,4 +51,6 @@
 - group/[group name]/[entry name]
 
 #### Extras
-- search page
+- search page for entries
+- search page for users
+- email verification

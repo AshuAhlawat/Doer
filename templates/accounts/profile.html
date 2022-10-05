@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block style %} 
+{% endblock %}
+
+{% block content %}
+    <div>
+        <a href="/accounts/logout">
+            <button>Logout</button>
+        </a>  
+    </div>
+    <div>
+        See your public <a href="/accounts/profile/{{user.username}}">profile</a>
+    </div>
+    <div>
+        <img src="/media/{{profile.dp}}" alt="" height="200" width="200">
+        <h1> {{user.username}} </h1>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            Name:
+            <input type="text" name="fname" value="{{user.first_name}}">
+            <input type="text" name="lname" value="{{user.last_name}}">
+            <br>
+            
+
+            {{profile_form.as_p}}
+
+            <input type="submit" value="Update">
+        </form>
+    </div>
+
+{% endblock %}
