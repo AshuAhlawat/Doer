@@ -1,11 +1,11 @@
 from django.shortcuts import render,redirect
+from django.core.paginator import Paginator
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 
 from django.contrib.auth.models import User
 from .models import Profile
-
 from . import forms
 
 def profile(request):
@@ -69,6 +69,47 @@ def profile_other(request, username):
     }
     
     return render(request, "accounts/profile_other.html", data)
+
+def search(request):
+    return render(request, "accounts/search.html")
+
+def followers(request):
+    data = {}
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user = request.user)
+
+        if request.method == "POST":
+            follower = Profile.objects.get(id=request.POST["profile_id"])
+            profile.followers.remove(follower)
+            follower.following.remove(profile)
+
+        followers_list = profile.followers.all()
+        paginator = Paginator(followers_list, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        data["profile"] = page_obj 
+
+    return render(request, "accounts/followers.html" , data)
+
+def following(request):
+    data = {}
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user = request.user)
+
+        if request.method == "POST":
+            followed = Profile.objects.get(id=request.POST["profile_id"])
+            profile.following.remove(followed)
+            followed.followers.remove(profile)
+
+        following_list = profile.following.all()
+        paginator = Paginator(following_list, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        data["profile_page"] = page_obj
+
+    return render(request, "accounts/following.html" , data)
 
 def signup(request):
     if request.method == "POST":

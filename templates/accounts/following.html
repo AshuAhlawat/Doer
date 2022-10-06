@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %} Following {% endblock %}
+
+{% block style %} 
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div>
+            <h1>You Follow</h1>
+            <ul>
+                {% for followed in profile_page %}
+                <li>
+                    <a href="/accounts/profile/{{followed.user.username}}">
+                        {{followed.user.username}}
+                    </a>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="profile_id" value="{{followed.id}}">
+                        <input type="submit" value="Remove">
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="pagination">
+            <span class="step-links">
+                <a href="?page=1">first</a>
+                {% if profile_page.has_previous %}
+                    <a href="?page={{ profile_page.previous_page_number }}">previous</a>
+                {% else %}
+                    <a href="">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ profile_page.number }} / {{ profile_page.paginator.num_pages }}.
+                </span>
+        
+                {% if profile_page.has_next %}
+                    <a href="?page={{ profile_page.next_page_number }}">next</a>
+                {% else %}
+                    <a href="">next</a>
+                {% endif %}
+                <a href="?page={{ profile_page.paginator.num_pages }}">last </a>
+            </span>
+        </div>
+        
+    {% else %}
+        <p>You cant see this without logging in <a href="/accounts/login">here</a> silly</p>
+    {% endif %}
+{% endblock %}

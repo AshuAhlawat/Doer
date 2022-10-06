@@ -11,12 +11,8 @@
         <img src="/media/{{profile.dp}}" alt="" height="200" width="200">
         <h1> {{profile.user.username}} </h1>
         <h3>{{profile.user.first_name}} {{profile.user.last_name}}</h3>
-        <p>{{profile.about}}</p>
+        <p>{{profile.about|linebreaks}}</p>
 
-        <div>
-            <p>Following : {{profile.following.all|length}}</p>
-            <p>Followers : {{profile.followers.all|length}}</p>
-        </div>
 
         {% if request.user.is_authenticated %}
             <form action="" method="post"> 
@@ -27,10 +23,31 @@
                     <input type="submit" value="Follow">
                 {% endif %}
             </form>
+            
+            <div>
+                <h2>Following : {{profile.following.all|length}}</h2>
+                <ul>
+                    {% for follower in profile.following.all|slice:":10" %}
+                        <li>{{follower.user.username}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div>
+                <h2>Followers : {{profile.followers.all|length}}</h2>
+                <ul>
+                    {% for follower in profile.followers.all|slice:":10"  %}
+                        <li>{{follower.user.username}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            
         {% else %}
-            <p>To follow people you need to login <a href="/accounts/login">here</a></p>
+            <p>To follow people or see the followers/following you need to login <a href="/accounts/login">here</a></p>
         {% endif %}
 
+        
     </div>
     {% else %}
     <div>

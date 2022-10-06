@@ -40,7 +40,7 @@
 ---
 
 ## Urls
-- stats
+- stats (just inside the public profile)
 - profile
 - signup
 - login
@@ -53,4 +53,5 @@
 #### Extras
 - search page for entries
 - search page for users
+- search in followers and following
 - email verification
