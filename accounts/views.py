@@ -71,7 +71,21 @@ def profile_other(request, username):
     return render(request, "accounts/profile_other.html", data)
 
 def search(request):
-    return render(request, "accounts/search.html")
+    query = request.GET.get("query")
+    data = {}
+    if query:
+        
+        users = User.objects.filter(username__contains=query)
+        data["query"] = query
+        data["length"] = len(users)
+
+        paginator = Paginator(users, 3)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        data["users_page"] = page_obj
+
+    return render(request, "accounts/search.html", data)
 
 def followers(request):
     data = {}
@@ -88,7 +102,7 @@ def followers(request):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        data["profile"] = page_obj 
+        data["profile_page`"] = page_obj 
 
     return render(request, "accounts/followers.html" , data)
 

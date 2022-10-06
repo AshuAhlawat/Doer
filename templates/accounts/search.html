@@ -6,10 +6,49 @@
 {% endblock %}
 
 {% block content %}
-    {% if searched %}
+    <form action="" method="get">
+        Username : <input type="text" name="query" value="{{query}}">
+        <input type="submit" value="Search">
+    </form>
+
+    {% if users_page %}
+        <div>
+            <b>{{length}}</b> search results
+        </div>
+        <div>
+            {% for users in users_page %}
+                <div>
+                    <a href="/accounts/profile/{{i.username}}">{{users.username}} - ({{users.first_name}} {{users.last_name}})</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="pagination">
+            <span class="step-links">
+                <a href="?query={{ query }}&page=1">first</a>
+                {% if users_page.has_previous %}
+                    <a href="?query={{ query }}&page={{ users_page.previous_page_number }}">previous</a>
+                {% else %}
+                    <a href="">previous</a>
+                {% endif %}
+    
+                <span class="current">
+                    Page {{ users_page.number }} / {{ users_page.paginator.num_pages }}.
+                </span>
+    
+                {% if users_page.has_next %}
+                    <a href="?query={{query}}&page={{ users_page.next_page_number }}">next</a>
+                {% else %}
+                    <a href="">next</a>
+                {% endif %}
+                <a href="?query={{query}}&page={{ users_page.paginator.num_pages }}">last </a>
+            </span>
+        </div>
 
     {% else %}
-
+        <div>
+            Seach results will be displayed here
+        </div>
     {% endif %}
 
 {% endblock %}
