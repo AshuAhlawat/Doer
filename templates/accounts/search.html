@@ -18,7 +18,7 @@
         <div>
             {% for users in users_page %}
                 <div>
-                    <a href="/accounts/profile/{{i.username}}">{{users.username}} - ({{users.first_name}} {{users.last_name}})</a>
+                    <a href="/accounts/profile/{{users.username}}">{{users.username}} - ({{users.first_name}} {{users.last_name}})</a>
                 </div>
             {% endfor %}
         </div>
