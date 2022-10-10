@@ -2,6 +2,60 @@
 
 {% block title %} Dashboard {% endblock %}
 
+{% block style %} 
+<style>
+    .new-grouping{
+        position: fixed;
+        left: 5px;
+        bottom: 5px;
+    }
+    .new-entry{
+        position: fixed;
+        right: 5px;
+        bottom: 5px;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
-    <p>Dashboard data</p>
+
+    {% if user.is_authenticated %}
+        <div class="groupings">
+            <h1>Groupings <span>({{groupings|length}})</span> </h1>
+            <a href="/grouping/new/" class="new-grouping"><button>New Grouping</button></a>
+            {% if groupings %}
+                {% for grouping in groupings %}
+                    <div class="grouping">
+                        <h2><a href="/grouping/{{grouping.id}}">{{grouping.title}}</a> - <span>{{grouping.num_entries}}</span></h2>
+                        <ul>
+                            {% for entry in grouping.entries.all|slice:":3" %}
+                                <li>{{entry}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div>No groupings yet</div>
+
+            {% endif %}
+        </div>
+
+        <div class="entries">
+            {% if entries %}
+                <h1> Groupless entries <span>({{entries|length}})</span></h1>
+                {% for entry in entries %}
+                    <div class="entry">
+                        <a href="/entry/{{entry.id}}/">{{entry}}</a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <a href="/entry/new/" class="new-entry"><button>New Entry</button></a>
+        </div>
+
+        
+    {% else %}
+        <div class="warn">
+            You Need to <a href="/accounts/login">login</a> in need to see your entries 
+        </div>
+    {% endif %}
 {% endblock %}

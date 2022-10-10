@@ -26,6 +26,10 @@
             </form>
             
             <div>
+                <h2>Entries - <span>{{user.entries.all|length}}</span> </h2>
+            </div>
+
+            <div>
                 <h2>Following : {{profile.following.all|length}}</h2>
                 <ul>
                     {% for follower in profile.following.all|slice:":10" %}

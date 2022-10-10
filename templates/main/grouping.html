@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %} Grouping - {{grouping}} {% endblock %}
+
+{% block style %} 
+<style>
+    .sort input[type=submit] {
+        padding: 2px 6px;
+        font-size: small;
+    }
+
+    .add-entry{
+        position: fixed;
+        right: 5px;
+        bottom: 5px;
+    }
+
+    .update-grouping{
+        position: fixed;
+        left: 5px;
+        bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>{{grouping.title}}</h1>
+
+    {% if entries %}
+    <div class="sort">
+        <form action="" method="get">
+            <label for="by">Sort by :</label>  
+            <select name="by">
+                <option value="created" selected>---</option>
+                <option value="done">Done</option>
+                <option value="public">Public</option>
+                <option value="edited">Edited</option>
+                <option value="title">Title</option>
+            </select>
+            <label for="reverse">Reverse :</label>
+            <input type="checkbox" name="reverse">
+
+            <input type="submit" class="apply" value="Apply" >
+        </form>
+
+        <p>{{rev}}sorted on {{by}}</p>
+    </div>
+    {% endif %}
+
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" value="{{grouping.title}}">
+
+        <div>
+
+            {% if entries %}
+            {% for entry in entries %}
+                <br>
+                <div>
+                    {% if entry.image %}
+                        <img src="/media/{{entry.image}}" height="100" width="100">
+                    {% endif %}
+                    
+                    <h2>
+                        <input type="checkbox" name="{{entry.id}}" id="" {% if entry.done %}checked{%endif%}>
+                        <a href="/entry/{{entry.id}}/"> {{entry.title}}</a>
+                    </h2>
+
+                    {% if entry.public %}
+                        <span>public</span>
+                    {% endif %}
+                </div>
+
+                <br>
+            {% endfor %}
+            {% else %}
+            <div>No Entries yet, make one!</div>
+            {% endif %}
+            <a href="add" class="add-entry"><button>Add Entry</button></a>
+        </div>
+        <input type="submit" value="Update" class="update-grouping">
+    </form>
+
+    <!-- <a href="delete" class="delete-grouping"><button title="Don't worry it will ask for confirmation">Delete</button></a> -->
+
+{% endblock %}

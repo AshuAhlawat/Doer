@@ -55,3 +55,5 @@
 - search page for users
 - search in followers and following
 - email verification
+- add sorting options in the grouping/ entries
+- different delete options on the groupings delete page

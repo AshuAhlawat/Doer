@@ -6,11 +6,12 @@ from django.contrib import auth
 
 from django.contrib.auth.models import User
 from .models import Profile
+
 from . import forms
 
 def profile(request):
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user=request.user)
+        profile = request.user.profile
         if request.method == "POST":
             dp = request.FILES.get('dp')
             if dp:
@@ -43,7 +44,7 @@ def profile_other(request, username):
         profile_other = Profile.objects.get(user = user_other)
 
         if request.user.is_authenticated:
-            profile = Profile.objects.get(user=request.user)
+            profile = request.user.profile
 
 
             if profile_other in profile.following.all():
@@ -90,7 +91,7 @@ def search(request):
 def followers(request):
     data = {}
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user = request.user)
+        profile = request.user.profile
 
         if request.method == "POST":
             follower = Profile.objects.get(id=request.POST["profile_id"])
@@ -109,7 +110,7 @@ def followers(request):
 def following(request):
     data = {}
     if request.user.is_authenticated:
-        profile = Profile.objects.get(user = request.user)
+        profile = request.user.profile
 
         if request.method == "POST":
             followed = Profile.objects.get(id=request.POST["profile_id"])
@@ -126,6 +127,7 @@ def following(request):
     return render(request, "accounts/following.html" , data)
 
 def signup(request):
+    data = {}
     if request.method == "POST":
         user_form = UserCreationForm(request.POST)
         if user_form.is_valid():
@@ -137,11 +139,8 @@ def signup(request):
             return redirect("/accounts/login")
 
     creation_form = UserCreationForm()
-
-    data = {
-        "creation_form" : creation_form
-    }
-
+    data["creation_form"] = creation_form
+    
     return render(request, "accounts/signup.html", data)
 
 def login(request):

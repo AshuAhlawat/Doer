@@ -1,6 +1,60 @@
-*{
-    padding: 0;
-    margin: 0;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Space+Mono&display=swap');
+
+:root {
+  --black: #282a36;
+  --gray: #44475a;
+  --comment: #6272a4;
+  --white: #f8f8f2;
+  --blue: rgb(139, 233, 253);
+  --green: #50fa7b;
+  --purple: rgb(189, 147, 249);
+  --pink: #ff79c6;
+  --red: #ff5555;
+  --yellow: #f1fa8c;
+  --orange: #ffb86c;
+}
+
+::-moz-selection {
+  color: var(--purple);
+  background-color: var(--gray);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--white);
+  font-family: "Space Mono";
+}
+
+h1,h2,h3,h3 {
+  font-family: "Poppins";
+}
+
+a {
+  text-decoration: none;
+  color : var(--blue);
+  transition: 300ms;
+}
+a:hover{
+  
+  color : var(--green)
+}
+
+input[type=text], textarea{
+  background-color: var(--gray);
+  color: var(--white);
+}
+
+button, input[type=submit]{
+  padding :7px 10px;
+  margin: 10px;
+  font-size: medium;
+  font-weight: bold;
 }
 
 .navbar {
@@ -8,21 +62,26 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: var(--gray);
 }
 
 .navbar li {
   float: left;
+  font-weight: bolder;
+  font-size: larger;
 }
 
 .navbar li a {
   display: block;
-  color: white;
+  color : var(--white);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  transition: 400ms;
 }
 
 .navbar li a:hover {
-  background-color: #111;
+  background-color: var(--black);
+  /* color : var(--comment); */
+  transition: 400ms;
 }
