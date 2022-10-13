@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} Delete - {{entry}} {% endblock %}
+
+{% block style %} 
+<style>
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1 class="entry-title">
+        {% if entry.title %}
+            {{entry.title}}
+        {% else %}
+            No Title
+        {% endif %}
+    </h1>
+    <span class="status">
+        {% if entry.public %}
+        Public
+        {% else %}
+        Private
+        {% endif %}
+    </span>
+    
+    {% if entry.image %}
+        <img src="/media/{{entry.image}}" alt="" height="300" width="300"> 
+    {% endif %}
+
+    <br>
+    <br>
+    <form action="" method="post">
+        {% csrf_token %}
+        Method of Deletion:
+        <br>
+        <div>
+        {% if entry.groupings.all|length > 0 %}
+            {% if grouping %}
+                <input type="radio" name="process" value="{{grouping.id}}"> Remove from grouping {{grouping.title}} <br>
+            {% endif %}
+            <input type="radio" name="process" value="all"> Remove from all {{entry.groupings.all|length}} groupings <br>
+        {% endif %}
+        <input type="radio" name="process" value="perma" required> Delete Permanently
+        </div>
+
+        <input class="danger bottom-left-btn" type="submit" value="DO IT">
+    </form>
+
+{% endblock %}
