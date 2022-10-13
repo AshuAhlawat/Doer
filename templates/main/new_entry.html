@@ -3,9 +3,54 @@
 {% block title %} New Entry {% endblock %}
 
 {% block style %} 
+<style>
+    input[type="submit"]{
+        position: absolute;
+        left:5px;
+        bottom: 5px;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
     <h1>Create new Entry</h1>
 
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            Cover: <br>
+            {{entry_form.image}}
+        </div>
+        <br>
+        <div>
+            Heading:
+            {{entry_form.title}}
+        </div>
+        <br>
+        <div>
+            {{entry_form.content}}
+        </div>
+        <br>
+        <div>
+            make this Public? {{entry_form.public}}
+        </div>
+
+        <div class="grouping">
+            <br>
+            <h3>Add Entry to :</h3>
+            
+            {% for grouping in user.groupings.all %}
+
+            <p>
+                
+                <input type="checkbox" name="added_to" value="{{grouping.id}}" {% if groupingid == grouping.id %}
+                checked
+                {% endif %}>
+                <label for="{{grouping.id}}">{{grouping.title}}</label>
+            </p>
+            {% endfor %}
+        </div>
+
+        <input type="submit" value="Add">
+    </form>
 {% endblock %}

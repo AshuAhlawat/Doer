@@ -3,10 +3,53 @@
 {% block title %} Entry - {{entry}} {% endblock %}
 
 {% block style %} 
+<style>
+</style>
 {% endblock %}
 
 {% block content %}
-    <h1> {{entry}} </h1>
+    <h1>{{grouping.title}}</h1><h2>{% if entry.title %}{{entry.title}}{% else %}No Title{% endif %}</h2>
+    <span class="status">
+        {% if entry.public %}
+        Public
+        {% else %}
+        Private
+        {% endif %}
+    </span>
 
+    {% if entry.image %}
+        <img src="/media/{{entry.image}}" alt="" height="300" width="300"> 
+    {% endif %}
+
+    <br>
+    <br>
+
+    <div class="entry-content">
+        {% if entry.content %}
+            {{entry.content}}
+        {% else %}
+            Empty...
+        {% endif %}
+    </div>
+
+    <br>
+    <br>
+
+    <div>
+        Present in {{entry.groupings.all|length}} Groups
+        <ul>
+            {% for g in entry.groupings.all %}
+                <li>
+                    <a href="/grouping/{{g.id}}/">
+                        {{g.title}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="/entry/edit/{{entry.id}}/" class="bottom-left-btn"><button>Edit</button></a>
+
+    <a href="/entry/delete/{{entry.id}}/{% if grouping %}?grouping={{grouping.id}}{% endif %}" class="bottom-right-btn"><button class="danger">Delete</button></a>
 
 {% endblock %}
