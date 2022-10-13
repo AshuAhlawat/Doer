@@ -41,8 +41,21 @@ a {
   transition: 300ms;
 }
 a:hover{
-  
   color : var(--green)
+}
+
+.bottom-left-btn{
+  position: fixed;
+  left: 5px;
+  bottom: 5px;
+}
+.bottom-right-btn{
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+}
+.danger{
+  background-color:var(--red);
 }
 
 input[type=text], textarea{

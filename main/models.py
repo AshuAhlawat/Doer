@@ -23,7 +23,7 @@ class Grouping(models.Model):
 
 class Entry(models.Model):
     image = models.ImageField(upload_to="images/entries/", blank=True)
-    title = models.CharField(max_length=60,blank=True)
+    title = models.CharField(max_length=60,blank=False)
     content = models.TextField(blank=True)
     done = models.BooleanField(default=False)
     public = models.BooleanField(default=False)

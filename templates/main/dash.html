@@ -27,11 +27,6 @@
                 {% for grouping in groupings %}
                     <div class="grouping">
                         <h2><a href="/grouping/{{grouping.id}}">{{grouping.title}}</a> - <span>{{grouping.num_entries}}</span></h2>
-                        <ul>
-                            {% for entry in grouping.entries.all|slice:":3" %}
-                                <li>{{entry}}</li>
-                            {% endfor %}
-                        </ul>
                     </div>
                 {% endfor %}
             {% else %}

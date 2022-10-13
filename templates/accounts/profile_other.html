@@ -11,7 +11,8 @@
         <img src="/media/{{profile.dp}}" alt="" height="200" width="200">
         <h1> {{profile.user.username}} </h1>
         <h3>{{profile.user.first_name}} {{profile.user.last_name}}</h3>
-        <span>Last edited : {{profile.edited}}</span>
+        <p>Created : {{profile.created}}</p>
+        <p>Last edited : {{profile.edited}}</p>
         <p>{{profile.about|linebreaks}}</p>
 
 
@@ -26,7 +27,13 @@
             </form>
             
             <div>
-                <h2>Entries - <span>{{user.entries.all|length}}</span> </h2>
+                <h2>Public Entries - <span>{{public_entries|length}}/{{tot_entries}}</span> </h2>
+
+                <ul>
+                    {% for entry in public_entries|slice:":10" %}
+                        <li><b>{{entry.title}}</b></li>
+                    {% endfor %}
+                </ul>
             </div>
 
             <div>

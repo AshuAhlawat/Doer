@@ -20,11 +20,18 @@
         left: 5px;
         bottom: 5px;
     }
+
+    h1 button{
+        padding: 2px 6px;
+        font-size: medium;
+    }
+
 </style>
 {% endblock %}
 
 {% block content %}
-    <h1>{{grouping.title}}</h1>
+    <h1>{{grouping.title}} <a href="/grouping/edit/{{grouping.id}}/"><button>Edit</button></a></h1>
+ 
 
     {% if entries %}
     <div class="sort">
@@ -43,15 +50,13 @@
             <input type="submit" class="apply" value="Apply" >
         </form>
 
-        <p>{{rev}}sorted on {{by}}</p>
+        <p>{{rev}} sorted on {{by}}</p>
     </div>
     {% endif %}
 
 
     <form action="" method="post">
         {% csrf_token %}
-        <input type="text" name="title" value="{{grouping.title}}">
-
         <div>
 
             {% if entries %}
@@ -64,12 +69,21 @@
                     
                     <h2>
                         <input type="checkbox" name="{{entry.id}}" id="" {% if entry.done %}checked{%endif%}>
-                        <a href="/entry/{{entry.id}}/"> {{entry.title}}</a>
+                        <a href="/entry/{{entry.id}}/?grouping={{grouping.id}}">
+                            {% if entry.title %} 
+                                {{entry.title}}
+                            {% else %}
+                                No Title
+                            {% endif %}
+                        </a>
                     </h2>
-
                     {% if entry.public %}
                         <span>public</span>
                     {% endif %}
+
+                    <div>
+                        {{entry.content|slice:":100"}}
+                    </div>
                 </div>
 
                 <br>
@@ -77,11 +91,10 @@
             {% else %}
             <div>No Entries yet, make one!</div>
             {% endif %}
-            <a href="add" class="add-entry"><button>Add Entry</button></a>
+            
         </div>
         <input type="submit" value="Update" class="update-grouping">
     </form>
-
-    <!-- <a href="delete" class="delete-grouping"><button title="Don't worry it will ask for confirmation">Delete</button></a> -->
+    <a href="/entry/new/?grouping={{grouping.id}}" class="add-entry"><button>Add Entry</button></a>
 
 {% endblock %}

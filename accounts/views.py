@@ -13,10 +13,8 @@ def profile(request):
     if request.user.is_authenticated:
         profile = request.user.profile
         if request.method == "POST":
-            dp = request.FILES.get('dp')
-            if dp:
-                profile.dp = dp
-            profile_form = forms.ProfileForm(request.POST,instance=profile)
+            profile_form = forms.ProfileForm(request.POST,request.FILES,instance=profile)
+
             request.user.first_name = request.POST["fname"]
             request.user.last_name = request.POST["lname"]
             
@@ -41,11 +39,11 @@ def profile_other(request, username):
     followed = False
     try:
         user_other = User.objects.get(username=username)
-        profile_other = Profile.objects.get(user = user_other)
+        profile_other = user_other.profile
+        public_entries = user_other.entries.filter(public=True)
 
         if request.user.is_authenticated:
             profile = request.user.profile
-
 
             if profile_other in profile.following.all():
                 followed = True
@@ -63,10 +61,14 @@ def profile_other(request, username):
     except Exception as e:
         print(e)
         profile_other = None
+        public_entries = None
 
     data = {
         "profile" : profile_other,
-        "followed" : followed
+        "followed" : followed,
+        "public_entries" : public_entries,
+        "tot_entries" : len(profile_other.user.entries.all())
+
     }
     
     return render(request, "accounts/profile_other.html", data)

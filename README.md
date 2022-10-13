@@ -51,9 +51,15 @@
 - group/[group name]/[entry name]
 
 #### Extras
-- search page for entries
-- search page for users
-- search in followers and following
+- keeps like interface
 - email verification
-- add sorting options in the grouping/ entries
+
 - different delete options on the groupings delete page
+- different delete options on the entries delete page
+- if followers/public entries over 10/ "view all" should appear
+- add different error page that redirects back in some time and displays error
+
+- implement sort as model
+- can edit their default sort in profile page
+- implement search/filter/sort on entries/models
+- trash feature
