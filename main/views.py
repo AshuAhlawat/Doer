@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django import forms
 
 from .models import Grouping, Entry
 from .forms import GroupingForm, EntryForm
@@ -72,6 +73,32 @@ def new_grouping(request):
     return render(request, "main/new_grouping.html", data)
 
 
+def edit_grouping(request,id):
+    data = {}
+    if request.user.is_authenticated:
+        
+        try:
+            grouping = request.user.groupings.get(id = id)
+            print(grouping.title)
+            data["grouping"] = grouping
+        except:
+            return redirect("/")
+        
+
+        if request.method == "POST":
+            title = request.POST["title"]
+            grouping.title = title
+            grouping.save()
+            return redirect(f"/grouping/{grouping.id}/")
+
+    else:
+        return redirect("/accounts/login")
+
+    return render(request, "main/edit_grouping.html", data)
+
+
+def delete_grouping(request,id):
+    pass
 
 
 # -------------------------------ENTRIES-------------------------------
@@ -164,3 +191,42 @@ def delete_entry(request, id):
         return redirect("/")    
     
     return render(request, "main/delete_entry.html",data)
+
+def edit_entry(request,id):
+    data = {}
+    if request.user.is_authenticated:
+        entry = Entry.objects.get(id = id)
+
+        if entry.user != request.user:
+            return redirect("/")
+
+        if request.method == "POST":
+            entry_form = EntryForm(request.POST.copy(),request.FILES, instance=entry)
+
+            if entry_form.is_valid():
+                entry = entry_form.save()
+                added_to = request.POST.getlist('added_to')
+
+                for grouping in request.user.groupings.all():
+                    grouping.entries.remove(entry)
+                    grouping.save()
+
+                for g_id in added_to:
+                    grouping = Grouping.objects.get(id = int(g_id))
+                    grouping.entries.add(entry)
+                    grouping.save()
+
+            entry = Entry.objects.get(id = id)
+
+
+        entry_form = EntryForm(instance=entry)
+        entry_form.fields["user"].widget = forms.HiddenInput()
+        entry_form.data["user"] = request.user
+
+        data["entry_form"] = entry_form
+        data["entry"] = entry
+        
+    else:
+        return redirect("/") 
+
+    return render(request, "main/edit_entry.html", data)

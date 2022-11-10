@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} New Grouping {% endblock %}
+
+{% block style %} 
+{% endblock %}
+
+{% block content %}
+    <h3>Rename Grouping : </h3>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="title" maxlength="60" width="50" value="{{grouping.title}}" required>
+        <br>
+        <input type="submit" value="Confirm">
+    </form>
+
+{% endblock %}

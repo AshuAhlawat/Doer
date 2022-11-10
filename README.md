@@ -61,5 +61,5 @@
 
 - implement sort as model
 - can edit their default sort in profile page
-- implement search/filter/sort on entries/models
+- implement search/filter/sort on all entries/groupings
 - trash feature

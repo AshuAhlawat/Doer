@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+Edit - {% if entry.title %}
+{{entry}}
+{% else %}
+No Title
+{% endif %} 
+{% endblock %}
+
+{% block style %} 
+<style>
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>EDIT Entry</h1>
+    <br>
+    <a href="/entry/{{entry.id}}/">
+        <h2 class="entry-title">
+        {% if entry.title %}
+            {{entry.title}}
+        {% else %}
+            No Title
+        {% endif %}
+        </h2>
+    </a>
+
+    {% if entry.image %}
+        <img src="/media/{{entry.image}}" height="300" width="300">
+    {% endif %}
+
+    <form action="" method="post" enctype="multipart/form-data">  
+        {% csrf_token %}
+        {{entry_form.as_p}}
+
+        {% for grouping in user.groupings.all %}
+            <p>
+                <input type="checkbox" name="added_to" value="{{grouping.id}}" {% if grouping in entry.groupings.all %}
+                checked
+                {% endif %}>
+                <label for="{{grouping.id}}">{{grouping.title}}</label>
+            </p>
+        {% endfor %}
+
+        <input type="submit" value="Update">
+    </form>
+
+{% endblock %}
