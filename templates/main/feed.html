@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Feed {% endblock %}
+
+{% block style %}
+<style>
+    .bot-left {
+        position: absolute;
+        left:5px;
+        bottom: 5px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        <a href="/feed/"><button class="bot-left">Reload</button></a>
+
+        
+
+
+
+
+    {% else %}
+        <div class="warn">
+            You Need to <a href="/accounts/login">login</a> in need to see entries of your followers
+        </div>
+    {% endif %}
+{% endblock %}

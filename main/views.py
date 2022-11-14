@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.shortcuts import render,redirect
 from django import forms
 
@@ -16,7 +18,21 @@ def dash(request):
     return render(request, "main/dash.html", data)
 
 
+# -----------------------------FEED------------------------------
 
+
+def feed(request):
+    data = {}
+    if request.user.is_authenticated:
+        following = request.user.profile.following.all()
+        print(feed_entries)
+        for person in following:
+            entries = person.user.entries.all()
+            print(entries)
+
+     
+
+    return render(request, "main/feed.html", data)
 
 # ---------------------------GROUPINGS----------------------------
 
@@ -142,7 +158,13 @@ def new_entry(request):
                     for i in added_to:
                         group = Grouping.objects.get(id=i)
                         group.entries.add(entry)
-                    return redirect(f"/grouping/{gid}/")
+
+                    if len(added_to)>1:
+                        return redirect(f"/")
+                    if gid:
+                        return redirect(f"/grouping/{gid}/")
+                    else:
+                        return redirect(f"/")
                 else:
                     return redirect("/")
         

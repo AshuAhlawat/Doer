@@ -17,5 +17,6 @@ urlpatterns = [
     path("entry/new/", views.new_entry),
     path("entry/delete/<int:id>/", views.delete_entry),
     path("entry/edit/<int:id>/", views.edit_entry),
-    # path("feed/",views.feed),
+
+    path("feed/",views.feed),
 ]
