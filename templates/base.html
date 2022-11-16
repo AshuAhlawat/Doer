@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="/media/css/base.css">
+    <link rel="stylesheet" href="/media/css/hero.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block style %}
+    {% endblock %}
+    {% block script %}
+    {% endblock %}
 </head>
-{% block style %}
-{% endblock %}
+
 <body>
 
-    <ul class="navbar">
+    <a href="#sidenav" class="btn open">&#8801;</a>
+    <div class="sidenav" id="sidenav">
+        <ul>
+            <li class="center user">
+                <img src="https://placeimg.com/300/300/people" alt="User" />
+                <p>John Doe</p>
+            </li>
+            <li class="divider"></li>
+            <li class="title">Links</li>
+            <li class="item active"><a href="#">Home</a></li>
+            <li class="item"><a href="#">About</a></li>
+
+        </ul>
+    </div>
+    <a href="#!" class="close sidenav-overlay"></a>
+
+
+
+    <!-- <ul class="navbar">
         <li><a class="active" href="/dash">Dashboard</a></li>
         <li><a class="active" href="/feed">Feed</a></li>
-        <li><a class="active" href="/accounts/search">Search</a></li>
+        <li><form action="/accounts/search/"><input type="text"><input type="submit"></form></li>
         
         <li style="float: right;">
             {% if user.is_authenticated %}
@@ -23,9 +47,16 @@
                 <a href="/accounts/login">Login/Signup</a>
             {% endif %}
         </li>
-    </ul>
+    </ul> -->
 
-    {% block content %}
-    {% endblock %}
+
+
+
+
+    <div class="App">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
+
 </html>

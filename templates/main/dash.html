@@ -1,56 +1,83 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
+{% block title %} Dashboard {% endblock %} 
 
-{% block title %} Dashboard {% endblock %}
-
-{% block style %} 
+{% block style %}
 <style>
-    .new-grouping{
+    .new-grouping {
         position: fixed;
         left: 5px;
         bottom: 5px;
     }
-    .new-entry{
+
+    .new-entry {
         position: fixed;
         right: 5px;
         bottom: 5px;
     }
 </style>
 {% endblock %}
+{% block content %} 
+{% if user.is_authenticated %}
+<div class="groupings">
+    <h1>Groupings <span>({{groupings|length}})</span></h1>
+    <a href="/grouping/new/" class="new-grouping"><button>New Grouping</button></a>
+    {% if groupings %} {% for grouping in groupings %}
+    <div class="grouping">
+        <h2>
+            <a href="/grouping/{{grouping.id}}">{{grouping.title}}</a> -
+            <span>{{grouping.num_entries}}</span>
+        </h2>
+    </div>
+    {% endfor %} {% else %}
+    <div>No groupings yet</div>
 
-{% block content %}
-
-    {% if user.is_authenticated %}
-        <div class="groupings">
-            <h1>Groupings <span>({{groupings|length}})</span> </h1>
-            <a href="/grouping/new/" class="new-grouping"><button>New Grouping</button></a>
-            {% if groupings %}
-                {% for grouping in groupings %}
-                    <div class="grouping">
-                        <h2><a href="/grouping/{{grouping.id}}">{{grouping.title}}</a> - <span>{{grouping.num_entries}}</span></h2>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div>No groupings yet</div>
-
-            {% endif %}
-        </div>
-
-        <div class="entries">
-            {% if entries %}
-                <h1> Groupless entries <span>({{entries|length}})</span></h1>
-                {% for entry in entries %}
-                    <div class="entry">
-                        <a href="/entry/{{entry.id}}/">{{entry}}</a>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            <a href="/entry/new/" class="new-entry"><button>New Entry</button></a>
-        </div>
-
-        
-    {% else %}
-        <div class="warn">
-            You Need to <a href="/accounts/login">login</a> in need to see your groupings and entries 
-        </div>
     {% endif %}
-{% endblock %}
+</div>
+
+<div class="entries">
+    {% if entries %}
+    <h1>Groupless entries <span>({{entries|length}})</span></h1>
+    {% for entry in entries %}
+    <div class="entry">
+        <a href="/entry/{{entry.id}}/">{{entry}}</a>
+    </div>
+    {% endfor %} {% endif %}
+    <a href="/entry/new/" class="new-entry"><button>New Entry</button></a>
+</div>
+
+{% else %}
+
+<div class="bg-white text-6xl py-48 ">
+    <h1>
+        <span>Tasks</span>
+        <div class="message font-rale">
+            <div class="word2">oh Shit!</div>
+            <div class="word1">Doing</div>
+            <div class="word3">Done :)</div>
+        </div>
+    </h1>
+</div>
+
+<div class="relative h-100 heroBg -mb-96">
+    <div class="flex items-center justify-between ">
+        <div class="flex flex-col text-start text-black ">
+            <p class="text-7xl leading-tighter">
+                The only
+                <span class=" text-black font-rale font-semibold text-9xl">
+                    TASKS
+                </span>
+                App You Will Ever Need. 🤍
+            </p>
+        </div>
+        <img src="/media/images/defaults/73810-business-idea-animation.gif" alt="" />
+    </div>
+</div>
+
+
+
+
+<!-- <div class="warn">
+    You Need to <a href="/accounts/login">login</a> in need to see your groupings
+    and entries
+</div> -->
+{% endif %} {% endblock %}

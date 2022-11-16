@@ -1,0 +1,120 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,300;0,400;1,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400&display=swap");
+h1 {
+  color: #333;
+  font-size: 3rem;
+  font-weight: 100;
+  line-height: 1.5;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  width: 80%;
+}
+.App {
+    text-align: center;
+  }
+h1 span {
+  font-size: 160px;
+  font-weight: 500;
+  margin-left: 0px;
+}
+
+.message {
+  color: #bc7afa;
+  display: block;
+  font-weight: 200;
+  overflow:visible;
+  position: absolute;
+  margin-top: 10px;
+  margin-right: 150px;
+  padding-left: 0.5rem;
+  top: 0.2rem;
+  left: 80%;
+  animation: openclose 5s ease-in-out infinite;
+}
+
+.word1,
+.word2,
+.word3 {
+  font-family: Raleway, sans-serif;
+  font-size: xxx-large;
+  /* position: relative; */
+}
+
+@keyframes openclose {
+  0% {
+    top: 0.2rem;
+    width: 0;
+  }
+  5% {
+    width: 0;
+  }
+  15% {
+    width: 230px;
+  }
+  30% {
+    top: 0.2rem;
+    width: 230px;
+  }
+  33% {
+    top: 0.2rem;
+    width: 0;
+  }
+  35% {
+    top: 0.2rem;
+    width: 0;
+  }
+  38% {
+    top: -4.5rem;
+  }
+  48% {
+    top: -4.5rem;
+    width: 190px;
+  }
+  62% {
+    top: -4.5rem;
+    width: 190px;
+  }
+  66% {
+    top: -4.5rem;
+    width: 0;
+    text-indent: 0;
+  }
+  71% {
+    top: -9rem;
+    width: 0;
+    text-indent: 5px;
+  }
+  86% {
+    top: -9rem;
+    width: 285px;
+  }
+  95% {
+    top: -9rem;
+    width: 285px;
+  }
+  98% {
+    top: -9rem;
+    width: 0;
+    text-indent: 5px;
+  }
+  100% {
+    top: 0;
+    width: 0;
+    text-indent: 0;
+  }
+}
+
+.heroBg {
+  background-color: #e5e5f7;
+  opacity: 0.8;
+  background: repeating-linear-gradient(
+    -45deg,
+    #bc7afa,
+    #bc7afa 20px,
+    white 20px,
+    white 100px
+  );
+  opacity: 1;
+}
