@@ -15,10 +15,33 @@
 {% block content %}
 
     {% if user.is_authenticated %}
-        <a href="/feed/"><button class="bot-left">Reload</button></a>
+        {% for entry in entries %}
+            <div>
+                {{entry.title}}
+            </div>
+        {% endfor %}
 
-        
-
+        <div class="pagination">
+            <span class="step-links">
+                <a href="?page=1">first</a>
+                {% if profile_page.has_previous %}
+                    <a href="?page={{ profile_page.previous_page_number }}">previous</a>
+                {% else %}
+                    <a href="">previous</a>
+                {% endif %}
+    
+                <span class="current">
+                    Page {{ profile_page.number }} / {{ profile_page.paginator.num_pages }}.
+                </span>
+    
+                {% if profile_page.has_next %}
+                    <a href="?page={{ profile_page.next_page_number }}">next</a>
+                {% else %}
+                    <a href="">next</a>
+                {% endif %}
+                <a href="?page={{ profile_page.paginator.num_pages }}">last </a>
+            </span>
+        </div>
 
 
 

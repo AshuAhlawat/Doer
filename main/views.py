@@ -1,6 +1,5 @@
-from itertools import chain
-
 from django.shortcuts import render,redirect
+from django.core.paginator import Paginator
 from django import forms
 
 from .models import Grouping, Entry
@@ -25,12 +24,18 @@ def feed(request):
     data = {}
     if request.user.is_authenticated:
         following = request.user.profile.following.all()
-        print(feed_entries)
-        for person in following:
-            entries = person.user.entries.all()
-            print(entries)
 
-     
+        entries = Entry.objects.none()
+        for person in following:
+            p_entries = person.user.entries.filter(public=True)
+            entries = entries | p_entries
+        entries = list(reversed(entries.order_by('created')))
+        
+        paginator = Paginator(entries, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        data["entries"] = page_obj
 
     return render(request, "main/feed.html", data)
 
