@@ -16,8 +16,28 @@
 </head>
 
 <body>
+    <nav>
+        <div class="w-9/12 mx-auto flex justify-evenly items-center">
+            <a href="#sidenav" class="btn open">&#8801;</a>
+            <h1 class="text-3xl doerHead ml-96 font-light">Doer</h1>
+            
 
-    <a href="#sidenav" class="btn open">&#8801;</a>
+            <form action="/accounts/search/">   
+                
+                <div class="relative">
+                    
+                    <input type="text" id="search" class="text-black block w-full p-4 pl-48 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500  " placeholder="Search" required>
+                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-purple-500 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-purple-500 dark:hover:bg-purple-700 dark:focus:ring-purple-700">Search</button>
+                </div>
+            </form>
+            
+            <div class="space-x-4 ml-28 -mr-28 flex flex-row flex-nowrap">
+                <button class="text-md px-2 cursor-pointer border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">Login / SignUp</button>
+                <!-- <button class="text-md px-2 cursor-pointer border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"> Sign Up</button> -->
+            </div>
+        </div>
+    
+    
     <div class="sidenav" id="sidenav">
         <ul>
             <li class="center user">
@@ -25,13 +45,73 @@
                 <p>John Doe</p>
             </li>
             <li class="divider"></li>
-            <li class="title">Links</li>
-            <li class="item active"><a href="#">Home</a></li>
-            <li class="item"><a href="#">About</a></li>
+            <li class="title">profile</li>
+            <li class="item active"><a href="#">Flex</a></li>
+            <li class="item"><a href="#">Dashboard</a></li>
 
         </ul>
     </div>
     <a href="#!" class="close sidenav-overlay"></a>
+    </nav>
+
+
+
+                    <!-- ****************  Hero2 ************** -->
+
+
+
+
+    <div class="bg-white text-6xl py-48 text-center">
+        <h1>
+            <span>Tasks</span>
+            <div class="message font-rale">
+                <div class="word2">oh Shit!</div>
+                <div class="word1">Doing</div>
+                <div class="word3">Done :)</div>
+            </div>
+        </h1>
+    </div>
+    
+    <div class="relative h-100 heroBg -mb-96">
+        <div class="flex items-center justify-between ">
+            <div class="flex flex-col text-start text-black ">
+                <p class="text-7xl leading-tighter">
+                    The only
+                    <span class=" text-black font-rale font-semibold text-9xl">
+                        TASKS
+                    </span>
+                    App You Will Ever Need. 🤍
+                </p>
+            </div>
+            <img src="/media/images/defaults/73810-business-idea-animation.gif" alt="" />
+        </div>
+    </div>
+
+    <!-- /* **************** Background waves ******************** */ -->
+
+    <div class=" h-screen">
+      <div class="bg text-6xl py-40"></div>
+      <div class="bg bg2 text-6xl py-48"></div>
+      <div class="bg bg3 text-6xl py-56"></div>
+    </div>
+
+
+
+
+
+
+
+    <div class="App">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>
+
+
+
+
 
 
 
@@ -48,15 +128,3 @@
             {% endif %}
         </li>
     </ul> -->
-
-
-
-
-
-    <div class="App">
-        {% block content %}
-        {% endblock %}
-    </div>
-</body>
-
-</html>
