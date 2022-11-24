@@ -48,8 +48,10 @@
         </ul>
     </div>
 
-    <a href="/entry/edit/{{entry.id}}/" class="bottom-left-btn"><button>Edit</button></a>
+    {% if owner %}
+        <a href="/entry/edit/{{entry.id}}/" class="bottom-left-btn"><button>Edit</button></a>
 
-    <a href="/entry/delete/{{entry.id}}/{% if grouping %}?grouping={{grouping.id}}{% endif %}" class="bottom-right-btn"><button class="danger">Delete</button></a>
+        <a href="/entry/delete/{{entry.id}}/{% if grouping %}?grouping={{grouping.id}}{% endif %}" class="bottom-right-btn"><button class="danger">Delete</button></a>
+    {% endif %}
 
 {% endblock %}

@@ -129,10 +129,11 @@ def entry(request,id):
     if request.user.is_authenticated:
         entry = Entry.objects.get(id = id)
         if entry.user != request.user:
-            return redirect("/")
-
-        if request.method == "POST":
-            pass
+            data["owner"] = False
+            if not entry.public:
+                return redirect("/")
+        else:
+            data["owner"] = True
         
         gid = request.GET.get("grouping")
         if gid:

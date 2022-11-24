@@ -17,8 +17,17 @@
     {% if user.is_authenticated %}
         {% for entry in entries %}
             <div>
-                {{entry.title}}
+                <h3><a href="/entry/{{entry.id}}">{{entry.title}}</a> </h3>
+                {% if entry.image %}
+                    <img src="/media/{{entry.image}}">
+                {% endif %}
+                {% if entry.content %}
+                    <p>{{entry.content}}</p>
+                {% endif %}
+
+                <b>- <a href="/accounts/profile/{{entry.user.username}}/">{{entry.user.username}}</a></b>
             </div>
+            <br>
         {% endfor %}
 
         <div class="pagination">

@@ -9,12 +9,22 @@
     {% if profile %}
     <div>
         <img src="/media/{{profile.dp}}" alt="" height="200" width="200">
-        <h1> {{profile.user.username}} </h1>
+        
+        <h1> 
+            {{profile.user.username}} 
+            <span> 
+                {% if owner %}
+                <a href="/accounts/profile/"><button>Edit</button></a>
+                {% endif %}
+            </span>
+        </h1>
+
         <h3>{{profile.user.first_name}} {{profile.user.last_name}}</h3>
         <p>Created : {{profile.created}}</p>
         <p>Last edited : {{profile.edited}}</p>
         <p>{{profile.about|linebreaks}}</p>
 
+        
 
         {% if request.user.is_authenticated %}
             <form action="" method="post"> 
@@ -31,7 +41,7 @@
 
                 <ul>
                     {% for entry in public_entries|slice:":10" %}
-                        <li><b>{{entry.title}}</b></li>
+                        <li><a href="/entry/{{entry.id}}/"><b>{{entry.title}}</b></a> - {{entry.created}}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -39,8 +49,8 @@
             <div>
                 <h2>Following : {{profile.following.all|length}}</h2>
                 <ul>
-                    {% for follower in profile.following.all|slice:":10" %}
-                        <li>{{follower.user.username}}</li>
+                    {% for person in profile.following.all|slice:":10" %}
+                        <li><a href="/accounts/profile/{{person.user.username}}">{{person.user.username}}</a></li>
                     {% endfor %}
                 </ul>
             </div>
@@ -48,8 +58,8 @@
             <div>
                 <h2>Followers : {{profile.followers.all|length}}</h2>
                 <ul>
-                    {% for follower in profile.followers.all|slice:":10"  %}
-                        <li>{{follower.user.username}}</li>
+                    {% for person in profile.followers.all|slice:":10"  %}
+                        <li><a href="/accounts/profile/{{person.user.username}}">{{person.user.username}}</a></li>
                     {% endfor %}
                 </ul>
             </div>

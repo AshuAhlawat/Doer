@@ -29,6 +29,7 @@ def profile(request):
         return redirect("/accounts/login")  
 
     data = {
+        "owner" : True,
         'profile' : profile,
         "profile_form" : profile_form
     }
@@ -64,11 +65,11 @@ def profile_other(request, username):
         public_entries = None
 
     data = {
+        "owner" : (profile_other == request.user.profile),
         "profile" : profile_other,
         "followed" : followed,
         "public_entries" : public_entries,
         "tot_entries" : len(profile_other.user.entries.all())
-
     }
     
     return render(request, "accounts/profile_other.html", data)
@@ -105,7 +106,7 @@ def followers(request):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        data["profile_page`"] = page_obj 
+        data["profile_page"] = page_obj 
 
     return render(request, "accounts/followers.html" , data)
 
